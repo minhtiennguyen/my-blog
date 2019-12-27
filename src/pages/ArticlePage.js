@@ -3,6 +3,7 @@ import ArticlesList from '../components/ArticlesList';
 import NotFoundPage from '../pages/NotFoundPage';
 import CommentsList from '../components/CommentsList';
 import UpvotesSection from '../components/UpvotesSection';
+import AddCommentForm from '../components/AddCommentForm';
 import articlesContent from '../articles-content';
 
 const ArticlePage = ({ match }) => {
@@ -39,6 +40,7 @@ const ArticlePage = ({ match }) => {
       {article.content.map((paragraph, key) => (
         <p key={key}>{paragraph}</p>
       ))}
+      <AddCommentForm name={name} setArticleInfo={setArticleInfo} />
       <CommentsList comments={articleInfo.comments} />
       <h3>Other Articles:</h3>
       <ArticlesList articles={otherArticles} />
