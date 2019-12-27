@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ArticlesList from '../components/ArticlesList';
 import NotFoundPage from '../pages/NotFoundPage';
 import CommentsList from '../components/CommentsList';
+import UpvotesSection from '../components/UpvotesSection';
 import articlesContent from '../articles-content';
 
 const ArticlePage = ({ match }) => {
@@ -18,12 +19,10 @@ const ArticlePage = ({ match }) => {
     const fetchData = async () => {
       const result = await fetch(`/api/articles/${name}`);
       const body = await result.json();
-      console.log(body)
       setArticleInfo(body);
-    }
+    };
 
     fetchData();
-
   }, [name]);
 
   if (!article) return <NotFoundPage />;
@@ -32,7 +31,11 @@ const ArticlePage = ({ match }) => {
   return (
     <>
       <h1>{article.title}</h1>
-      <p>This post has been upvoted {articleInfo.upvotes} times</p>
+      <UpvotesSection
+        name={name}
+        upvotes={articleInfo.upvotes}
+        setArticleInfo={setArticleInfo}
+      />
       {article.content.map((paragraph, key) => (
         <p key={key}>{paragraph}</p>
       ))}
